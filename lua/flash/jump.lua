@@ -170,7 +170,7 @@ end
 function M._jump(match, state, opts)
   opts = opts or {}
   M.fix_selection()
-  M.open_folds(match)
+  -- M.open_folds(match)
   -- select range
   if state.opts.jump.pos == "range" then
     if vim.fn.mode() == "v" then
