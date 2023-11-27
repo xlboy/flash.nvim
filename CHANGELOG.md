@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.18.2](https://github.com/folke/flash.nvim/compare/v1.18.1...v1.18.2) (2023-10-17)
+
+
+### Bug Fixes
+
+* **treesitter:** show warning when treesitter not available. Fixes [#261](https://github.com/folke/flash.nvim/issues/261) ([77c66d8](https://github.com/folke/flash.nvim/commit/77c66d84be3e2a2ef2e6689de668fe156af74498))
+
+## [1.18.1](https://github.com/folke/flash.nvim/compare/v1.18.0...v1.18.1) (2023-10-16)
+
+
+### Bug Fixes
+
+* **char:** allow setting autohide=true for char mode. Fixes [#231](https://github.com/folke/flash.nvim/issues/231) ([71040c8](https://github.com/folke/flash.nvim/commit/71040c87bd64d2719727006f51f8679352eb6146))
+* **jump:** send `esc` when cancelling flash. Fixes [#212](https://github.com/folke/flash.nvim/issues/212). Fixes [#233](https://github.com/folke/flash.nvim/issues/233) ([677eb59](https://github.com/folke/flash.nvim/commit/677eb59f0a94ed3b735168d9e6738723fd44796d))
+* **treesitter:** include treesitter injections. Fixes [#242](https://github.com/folke/flash.nvim/issues/242) ([5fe47ba](https://github.com/folke/flash.nvim/commit/5fe47baf1be05ea34abb6912ed89a5a17cbf5661))
+* **treesitter:** keep treesitter sorting when doing ;,. Fixes [#219](https://github.com/folke/flash.nvim/issues/219) ([aae8352](https://github.com/folke/flash.nvim/commit/aae83521091fac904b8584bb2dffe13420b7adc7))
+
+## [1.18.0](https://github.com/folke/flash.nvim/compare/v1.17.3...v1.18.0) (2023-10-02)
+
+
+### Features
+
+* **char:** allow disabling clever-f motions. Fixes [#245](https://github.com/folke/flash.nvim/issues/245) ([bc1f49f](https://github.com/folke/flash.nvim/commit/bc1f49f428655b645948a3489bf0efcded6f46e6))
+* enable multi window in vscode ([#230](https://github.com/folke/flash.nvim/issues/230)) ([65bd3ee](https://github.com/folke/flash.nvim/commit/65bd3ee715229fecdb5a9727e8dcd099c187622b))
+* **highlight:** allow overriding flash cursor hl. Fixes [#228](https://github.com/folke/flash.nvim/issues/228) ([79d67c6](https://github.com/folke/flash.nvim/commit/79d67c6d29cd3d784eb5f1410ba057e1f1499fe9))
+
+
+### Bug Fixes
+
+* **char:** disable jump labels when reg recording/executing ([#226](https://github.com/folke/flash.nvim/issues/226)) ([503b0ab](https://github.com/folke/flash.nvim/commit/503b0ab0091776d2c40541507114ff4b2f24f5b9))
+* **jump:** only open folds containing match. Fixes [#224](https://github.com/folke/flash.nvim/issues/224). Fixes [#225](https://github.com/folke/flash.nvim/issues/225) ([a74d31f](https://github.com/folke/flash.nvim/commit/a74d31ffec4a6e9feb6adc33efdba247d5d912f0))
+* **search:** allow disabling multi window for search. Fixes [#198](https://github.com/folke/flash.nvim/issues/198). Fixes [#197](https://github.com/folke/flash.nvim/issues/197) ([0256d8e](https://github.com/folke/flash.nvim/commit/0256d8ecab33a9aa69fdaaf885db22e1103e2a3a))
+* **state:** use actions instead of opts.actions ([30442c8](https://github.com/folke/flash.nvim/commit/30442c88b817b5d00fcbe2f88977bbd5d0221a20))
+
 ## [1.17.3](https://github.com/folke/flash.nvim/compare/v1.17.2...v1.17.3) (2023-07-20)
 
 

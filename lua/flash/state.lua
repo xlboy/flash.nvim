@@ -1,16 +1,16 @@
 local require = require("flash.require")
 
+local Cache = require("flash.cache")
 local Config = require("flash.config")
+local Hacks = require("flash.hacks")
 local Highlight = require("flash.highlight")
 local Jump = require("flash.jump")
 local Matcher = require("flash.search.matcher")
-local Search = require("flash.search")
-local Cache = require("flash.cache")
-local Hacks = require("flash.hacks")
 local Pattern = require("flash.search.pattern")
-local Util = require("flash.util")
 local Prompt = require("flash.prompt")
 local Rainbow = require("flash.rainbow")
+local Search = require("flash.search")
+local Util = require("flash.util")
 
 ---@class Flash.State.Config: Flash.Config
 ---@field matcher? fun(win: window, state:Flash.State, pos: {from:Pos, to:Pos}): Flash.Match[]
@@ -355,6 +355,7 @@ function M:step(opts)
   local actions = opts.actions or self.opts.actions or {}
   local c = self:get_char()
   if c == nil then
+    vim.api.nvim_input("<esc>")
     if opts.restore ~= false then
       self:restore()
     end

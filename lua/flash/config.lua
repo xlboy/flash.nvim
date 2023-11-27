@@ -162,10 +162,14 @@ local defaults = {
       -- dynamic configuration for ftFT motions
       config = function(opts)
         -- autohide flash when in operator-pending mode
-        opts.autohide = vim.fn.mode(true):find("no") and vim.v.operator == "y"
+        opts.autohide = opts.autohide or (vim.fn.mode(true):find("no") and vim.v.operator == "y")
 
-        -- disable jump labels when enabled and when using a count
-        opts.jump_labels = opts.jump_labels and vim.v.count == 0
+        -- disable jump labels when not enabled, when using a count,
+        -- or when recording/executing registers
+        opts.jump_labels = opts.jump_labels
+          and vim.v.count == 0
+          and vim.fn.reg_executing() == ""
+          and vim.fn.reg_recording() == ""
 
         -- Show jump labels only in operator-pending mode
         -- opts.jump_labels = vim.v.count == 0 and vim.fn.mode(true):find("o")
@@ -327,7 +331,6 @@ function M.get(...)
 
   if vim.g.vscode then
     ret.prompt.enabled = false
-    ret.search.multi_window = false
   end
   return ret
 end

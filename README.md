@@ -69,7 +69,7 @@ Install the plugin with your preferred package manager:
   -- stylua: ignore
   keys = {
     { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
     { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
     { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
     { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
@@ -249,10 +249,14 @@ Install the plugin with your preferred package manager:
       -- dynamic configuration for ftFT motions
       config = function(opts)
         -- autohide flash when in operator-pending mode
-        opts.autohide = vim.fn.mode(true):find("no") and vim.v.operator == "y"
+        opts.autohide = opts.autohide or (vim.fn.mode(true):find("no") and vim.v.operator == "y")
 
-        -- disable jump labels when enabled and when using a count
-        opts.jump_labels = opts.jump_labels and vim.v.count == 0
+        -- disable jump labels when not enabled, when using a count,
+        -- or when recording/executing registers
+        opts.jump_labels = opts.jump_labels
+          and vim.v.count == 0
+          and vim.fn.reg_executing() == ""
+          and vim.fn.reg_recording() == ""
 
         -- Show jump labels only in operator-pending mode
         -- opts.jump_labels = vim.v.count == 0 and vim.fn.mode(true):find("o")
@@ -397,7 +401,6 @@ Install the plugin with your preferred package manager:
 - **VS Code**: some functionality is changed/disabled when running **flash** in **VS Code**:
   - `prompt` is disabled
   - `highlights` are set to different defaults that will actually work in VS Code
-  - `search.multi_window` is disabled, since VS Code has problems with `vim.api.nvim_set_current_win`
 
 ## 📡 API
 
@@ -672,12 +675,15 @@ Flash.jump({
 
 ## 🌈 Highlights
 
-| Group           | Default      | Description    |
-| --------------- | ------------ | -------------- |
-| `FlashBackdrop` | `Comment`    | backdrop       |
-| `FlashMatch`    | `Search`     | search matches |
-| `FlashCurrent`  | `IncSearch`  | current match  |
-| `FlashLabel`    | `Substitute` | jump label     |
+| Group             | Default      | Description    |
+| ----------------- | ------------ | -------------- |
+| `FlashBackdrop`   | `Comment`    | backdrop       |
+| `FlashMatch`      | `Search`     | search matches |
+| `FlashCurrent`    | `IncSearch`  | current match  |
+| `FlashLabel`      | `Substitute` | jump label     |
+| `FlashPrompt`     | `MsgArea`    | prompt         |
+| `FlashPromptIcon` | `Special`    | prompt icon    |
+| `FlashCursor`     | `Cursor`     | cursor         |
 
 ## 📦 Alternatives
 

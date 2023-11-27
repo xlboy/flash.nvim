@@ -1,6 +1,6 @@
+local Hacks = require("flash.hacks")
 local Pos = require("flash.search.pos")
 local Util = require("flash.util")
-local Hacks = require("flash.hacks")
 local M = {}
 
 ---@param match Flash.Match
@@ -208,8 +208,8 @@ end
 ---@param match Flash.Match
 function M.open_folds(match)
   local cursor = vim.api.nvim_win_get_cursor(match.win)
-  local from = math.min(match.pos[1], cursor[1])
-  local to = math.max(match.end_pos[1], cursor[1])
+  local from = match.pos[1]
+  local to = match.end_pos[1]
   local is_visual = vim.fn.mode(true):find("v")
   local opened = false
   for line = from, to do

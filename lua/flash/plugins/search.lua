@@ -1,9 +1,9 @@
 local require = require("flash.require")
 
+local Config = require("flash.config")
 local Jump = require("flash.jump")
 local State = require("flash.state")
 local Util = require("flash.util")
-local Config = require("flash.config")
 
 local M = {}
 
@@ -64,9 +64,11 @@ function M.start()
       forward = vim.fn.getcmdtype() == "/",
       mode = "search",
       incremental = vim.go.incsearch,
-      multi_window = not M.op,
     },
   })
+  if M.op then
+    M.state.opts.search.multi_window = false
+  end
 end
 
 function M.setup()

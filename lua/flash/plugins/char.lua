@@ -1,9 +1,9 @@
 local require = require("flash.require")
 
-local Util = require("flash.util")
-local Repeat = require("flash.repeat")
 local Config = require("flash.config")
 local Labeler = require("flash.labeler")
+local Repeat = require("flash.repeat")
+local Util = require("flash.util")
 
 local M = {}
 
@@ -166,8 +166,13 @@ function M.parse(key)
   -- don't repeat when executing a macro
   if M.visible() and vim.fn.reg_executing() == "" and M.motion:lower() == key:lower() then
     ret.actions = M.actions(M.motion)
-    ret.jump = ret.actions[key] or M.next
-    return ret
+    if ret.actions[key] then
+      ret.jump = ret.actions[key]
+      return ret
+    else
+      -- no action defined, so clear the state
+      M.motion = ""
+    end
   end
 
   -- different motion, clear the state

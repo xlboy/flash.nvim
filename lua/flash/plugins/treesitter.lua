@@ -1,7 +1,7 @@
-local Repeat = require("flash.repeat")
-local Util = require("flash.util")
 local Config = require("flash.config")
 local Pos = require("flash.search.pos")
+local Repeat = require("flash.repeat")
+local Util = require("flash.util")
 
 local M = {}
 
@@ -18,14 +18,24 @@ function M.get_nodes(win, pos)
 
   local nodes = {} ---@type TSNode[]
 
-  local tree = vim.treesitter.get_parser(buf)
-  if not tree then
+  local ok, tree = pcall(vim.treesitter.get_parser, buf)
+  if not ok then
+    vim.notify(
+      "No treesitter parser for this buffer with filetype=" .. vim.bo[buf].filetype,
+      vim.log.levels.WARN,
+      { title = "flash.nvim" }
+    )
+    vim.api.nvim_input("<esc>")
+  end
+  if not (ok and tree) then
     return {}
   end
 
   do
     -- get all ranges of the current node and its parents
-    local node = tree:named_node_for_range({ pos[1] - 1, pos[2], pos[1] - 1, pos[2] })
+    local node = tree:named_node_for_range({ pos[1] - 1, pos[2], pos[1] - 1, pos[2] }, {
+      ignore_injections = false,
+    })
 
     while node do
       nodes[#nodes + 1] = node
